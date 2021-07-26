@@ -17,11 +17,11 @@ fetch('https://pokeapi.co/api/v2/pokemon')
     let number = 0;
     data.results.forEach(element => {
         addDiv();
-        console.log(element)
-        Object.keys(data.number).forEach(element => {
-            console.log(element)
-             number++;
-         })
+        console.log(element.name)
+        // Object.keys(data.number).forEach(element => {
+        //     console.log(element)
+        //      number++;
+        //  })
       })
     });
 
