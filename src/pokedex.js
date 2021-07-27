@@ -1,9 +1,4 @@
 let $pokemonList = document.querySelector("#pokemon-list-div");
-let $pokemonListDiv1 = document.querySelector("#pokemon-list-div-1");
-let $pokemonListDiv2 = document.querySelector("#pokemon-list-div-2");
-let $pokemonListDiv3 = document.querySelector("#pokemon-list-div-3");
-let $pokemonListDiv4 = document.querySelector("#pokemon-list-div-4");
-let $pokemonListDiv5 = document.querySelector("#pokemon-list-div-5");
 let count = 1;
 let countPokemon = 1;
 let countPage =1;
@@ -22,6 +17,7 @@ function createMainPage(){
     }
 }
 function fetchPokemon(){
+    console.log(`https://pokeapi.co/api/v2/pokemon/${count}`)
 fetch(`https://pokeapi.co/api/v2/pokemon/${count}`)
   .then(response => response.json())
   .then(data => {
@@ -34,41 +30,36 @@ function addDiv () {
     let createDiv = document.createElement("div");
     createDiv.setAttribute("id", `pokemon-${count}`);
     createDiv.setAttribute("class", "pokemonDivs");
-    if (count < 5){
-        $pokemonListDiv1.appendChild(createDiv);
-    }else if (count < 9){
-        $pokemonListDiv2.appendChild(createDiv);
-    }else if (count < 13){
-        $pokemonListDiv3.appendChild(createDiv);
-    }else if (count < 17){
-        $pokemonListDiv4.appendChild(createDiv);
-    }else if (count < 21){
-        $pokemonListDiv5.appendChild(createDiv);
-    }
+    
+    $pokemonList.appendChild(createDiv);
     createDiv.textContent = "contenido";
     let $arrayPush = document.querySelector(`#pokemon-${count}`);
     array.push($arrayPush);
 }
 function completeDiv(element){
-
     let name = element.name;
-    let $selectedDiv = document.querySelector(`#pokemon-${count}`)
     let img = document.createElement("img");
-    console.log($selectedDiv)
+    let $selectedDiv = document.querySelector(`#pokemon-${count}`)
     img.src = element.sprites.other.dream_world.front_default;
+
     $selectedDiv.textContent = name;
     $selectedDiv.appendChild(img);
+
     count++
 }
 function btnNextClick (){
     for (let index = 0; index < array.length; index++) {
         let $deleteDiv = array[index];
+        //   = document.querySelector("#pokemon-1");
         $deleteDiv.remove();
-    }
+        }
+
     //wipea los div 
     countPage++; //aumenta el contador de la pagina
     countPokemon = 1;
     createMainPage();
+
 }
+
 createMainPage();
 console.log(array);
