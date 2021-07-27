@@ -8,24 +8,34 @@
 </head>
 
 <body>
-    <div id="header">
-        <h1>Pokedex</h1>
-    </div>
+   
     <div id="body">
-        <input type="text"></input>
-        <div id="buttons">
-            <button onclick="addDiv()">BUSCAR!</button>
-            <button>Pokemon random</button>
+        <div id="header">
+            <div id="header">
+                <h1>Pokedex</h1>
+            </div>
+            <input type="text"></input>
+            <div id="buttons">
+                <button onclick="addDiv()">BUSCAR!</button>
+                <button>Pokemon random</button>
+            </div>
         </div>
-        <div id="main-page">
-            <div id="next-page-btn"></div>
-            <div id="pokemon-list-div"></div>
-        </div>
-        <div id="buttons-pages">
-            <button>Pagina anterior</button>
-            <button id="btn-next" onclick="btnNextClick()">Paguina siguiente</button>
-        </div>
+            <div id="main-page">
+                <div id="next-page-btn"></div>
+                <div id="pokemon-list-div">
+                    <div id="pokemon-list-div-1" class="pokemon-div-flex"></div>
+                    <div id="pokemon-list-div-2" class="pokemon-div-flex"></div>
+                    <div id="pokemon-list-div-3" class="pokemon-div-flex"></div>
+                    <div id="pokemon-list-div-4" class="pokemon-div-flex"></div>
+                    <div id="pokemon-list-div-5" class="pokemon-div-flex"></div>
+                </div>
+            </div>
+            <div id="buttons-pages">
+                <button>Pagina anterior</button>
+                <button id="btn-next" onclick="btnNextClick()">Paguina siguiente</button>
+            </div>    
     </div>
+
     <p>Esta página web es una página HTML válida.</p>
 <script src="src/pokedex.js"></script>
 </body>

@@ -1,51 +1,9 @@
-// let $pokemonList = document.querySelector("#pokemon-list-div");
-// let count = 0;
-
-// function addDiv () {
-
-//     let createDiv = document.createElement("div");
-//     createDiv.setAttribute("id", `pokemon-${count}`);
-//     createDiv.setAttribute("class", "pokemonDivs");
-//     $pokemonList.appendChild(createDiv);
-//     createDiv.textContent = "contenido";
-// }
-// function completeDiv(element){
-//     let name = element.name;
-//     let url = element.url;
-//     let $selectedDiv = document.querySelector(`#pokemon-${count}`)
-//     $selectedDiv.textContent = name;
-//     count++
-// }
-// function showInfo(){
-//     let $pokemonDivs =document.querySelectorAll(".pokemonDivs")
-//     $pokemonDivs.forEach(function(pokemon){
-//         pokemon.onclick=function(){
-//             fetchShowInfo();
-//         }
-//     })
-// }
-// function fetchShowInfo(){
-//     fetch(`https://pokeapi.co/api/v2/pokemon/1`)
-//     .then(response => response.json())
-//     .then(data => {
-//        data.results.forEach(element => {
-//             console.log(element)
-//             })
-//        });
-
-// }
-// fetch('https://pokeapi.co/api/v2/pokemon')
-//   .then(response => response.json())
-//   .then(data => {
-//     data.results.forEach(element => {
-//         addDiv();
-//         completeDiv(element);
-//         showInfo();
-//       })
-//     });
-
-
 let $pokemonList = document.querySelector("#pokemon-list-div");
+let $pokemonListDiv1 = document.querySelector("#pokemon-list-div-1");
+let $pokemonListDiv2 = document.querySelector("#pokemon-list-div-2");
+let $pokemonListDiv3 = document.querySelector("#pokemon-list-div-3");
+let $pokemonListDiv4 = document.querySelector("#pokemon-list-div-4");
+let $pokemonListDiv5 = document.querySelector("#pokemon-list-div-5");
 let count = 1;
 let countPokemon = 1;
 let countPage =1;
@@ -64,7 +22,6 @@ function createMainPage(){
     }
 }
 function fetchPokemon(){
-    console.log(`https://pokeapi.co/api/v2/pokemon/${count}`)
 fetch(`https://pokeapi.co/api/v2/pokemon/${count}`)
   .then(response => response.json())
   .then(data => {
@@ -77,32 +34,41 @@ function addDiv () {
     let createDiv = document.createElement("div");
     createDiv.setAttribute("id", `pokemon-${count}`);
     createDiv.setAttribute("class", "pokemonDivs");
-    $pokemonList.appendChild(createDiv);
+    if (count < 5){
+        $pokemonListDiv1.appendChild(createDiv);
+    }else if (count < 9){
+        $pokemonListDiv2.appendChild(createDiv);
+    }else if (count < 13){
+        $pokemonListDiv3.appendChild(createDiv);
+    }else if (count < 17){
+        $pokemonListDiv4.appendChild(createDiv);
+    }else if (count < 21){
+        $pokemonListDiv5.appendChild(createDiv);
+    }
     createDiv.textContent = "contenido";
     let $arrayPush = document.querySelector(`#pokemon-${count}`);
     array.push($arrayPush);
 }
 function completeDiv(element){
+
     let name = element.name;
-    let url = element.order;
-    console.log(url)
     let $selectedDiv = document.querySelector(`#pokemon-${count}`)
+    let img = document.createElement("img");
+    console.log($selectedDiv)
+    img.src = element.sprites.other.dream_world.front_default;
     $selectedDiv.textContent = name;
+    $selectedDiv.appendChild(img);
     count++
 }
 function btnNextClick (){
     for (let index = 0; index < array.length; index++) {
         let $deleteDiv = array[index];
-        //   = document.querySelector("#pokemon-1");
         $deleteDiv.remove();
-        }
-    
+    }
     //wipea los div 
     countPage++; //aumenta el contador de la pagina
     countPokemon = 1;
     createMainPage();
-
 }
-
 createMainPage();
 console.log(array);
