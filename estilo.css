@@ -1,15 +1,39 @@
+
 body{
-    background-color: red;
+    background-color: #F8485E;
 }
 #top-page{
     display: flex;
+    flex-direction: row;
+
+}
+#top-page-div{
+    display: flex;
     flex-direction: column;
+
+}
+#blue-circle{
+    border-style:solid;
+    width: 70%;
+}
+h1{
+    font-size: 90px;
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+}
+#text-div{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 #main-page{
     display: flex;
     flex-direction: column;
-    background-color: black;
+    background-color: #151515;
     margin: 15px;
+    border-radius: 8px;
 
 }
 #buttons{
@@ -24,10 +48,10 @@ body{
     justify-content: center;
 }
 
-
 .pokemonDivs{
     display: flex;
     border-style:solid;
+    border-radius: 12px;
     margin: 10px;
     width:250px; 
 	height:240px;
@@ -49,10 +73,10 @@ body{
     flex-wrap: wrap;
     justify-content: center;
     border-style:solid;
+    border-radius: 8px;
     margin: 20px;
     padding: 10px;
-    background-color: white;
-
+    background-color: #FDF6F0;
 }
 
 
