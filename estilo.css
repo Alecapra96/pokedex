@@ -33,6 +33,8 @@
     height: auto;
     max-width: 250px;
     max-height: 340px;
+    justify-content: center;
+    align-content: center;
 }
 
 #pokemon-list-div{ 
@@ -40,6 +42,9 @@
     flex-wrap: wrap;
     justify-content: center;
     border-style:solid;
+    margin: 40px;
+    padding: 10px;
+
 }
 
 
