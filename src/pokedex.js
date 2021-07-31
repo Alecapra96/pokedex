@@ -1,29 +1,29 @@
 let $pokemonList = document.querySelector("#pokemon-list-div");
-let count = 1;
-let countPokemon = 1;
-let countPage =1;
-let maxPokemons = 1000;
-const limitPage = 20;
+let $actualPage = document.querySelector("#actual-page");
+
+let count = 1; //show the number of the pokemon in the api url
+let countPokemon = 1; //show the number of the pokemon that are being created
+let countPage =1; //show the number of the page
+const limitPagePokemons = 24; //24 pokemon per page
 let $btnNext = document.querySelector("#btn-next");
 let array = [];
-// Creo un div grande que sea la "pagina" donde se muestran los pokemones, cuando cambio de pagina, se wipean los datos de dentro 
-// y hago una fetch a la proxima pagina de la api
-// Creo 20 casillas para los pokemones ,dentro de este div , sumandole un numero a el ultimo digito de el link de la api en cadac uadro 
-// muestro la informacion de los pokemones en cada cuadro cuando le hagan click.
+
 function createMainPage(){
-    if (countPokemon <= limitPage){
+    if (countPokemon <= limitPagePokemons){
         fetchPokemon();
         countPokemon++;
     }
 }
 function fetchPokemon(){
-    console.log(`https://pokeapi.co/api/v2/pokemon/${count}`)
+    // console.log(`https://pokeapi.co/api/v2/pokemon/${count}`)
 fetch(`https://pokeapi.co/api/v2/pokemon/${count}`)
   .then(response => response.json())
   .then(data => {
         addDiv();
         completeDiv(data);
         createMainPage();
+        showInfo(data);   
+
     });
 }
 function addDiv () {
@@ -47,19 +47,58 @@ function completeDiv(element){
 
     count++
 }
-function btnNextClick (){
-    for (let index = 0; index < array.length; index++) {
-        let $deleteDiv = array[index];
-        //   = document.querySelector("#pokemon-1");
-        $deleteDiv.remove();
-        }
-
-    //wipea los div 
+function btnNextClick (){ //hacer un if que diga que si existe el $divshowinfo haga el codigo de abajo y si no existe haga el codigo desde abajo de wipe()
+    let $divShowInfo = document.querySelector("#div-show-info");
+    $divShowInfo.remove();
+    wipeDivs()
     countPage++; //aumenta el contador de la pagina
     countPokemon = 1;
+    $actualPage.textContent = countPage;
+
     createMainPage();
 
 }
+function btnAfterClick (){
+    if(countPage > 1){
+        let $divShowInfo = document.querySelector("#div-show-info");
+    $divShowInfo.remove();
+        wipeDivs()
+    countPage--; //disminuye el contador de la pagina
+    countPokemon = 1;
+    count = count - 48;
+    $actualPage.textContent = countPage;
+
+    createMainPage();
+    }
+
+}
+function showInfo(data){
+    
+    array.forEach(element => {
+        element.onclick=function(){
+            console.log(element) //sacar de el element el id que es el num del pokemon que hace clickkk
+            wipeDivs();
+             let createDiv = document.createElement("div");
+             createDiv.setAttribute("id", `div-show-info`);
+             $pokemonList.appendChild(createDiv);
+             createDiv.textContent = "contenido";
+
+             let img = document.createElement("img");
+             img.src = data.sprites.other.dream_world.front_default;
+             createDiv.appendChild(img);
+             return 
+        }
+    });
+}
+function wipeDivs(){
+    for (let index = 0; index < array.length; index++) {
+        let $deleteDiv = array[index];
+        $deleteDiv.remove();
+        
+        }
+       
+
+    //wipea the divs
+}
 
 createMainPage();
-console.log(array);
