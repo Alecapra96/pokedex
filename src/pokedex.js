@@ -1,5 +1,6 @@
 let $pokemonList = document.querySelector("#pokemon-list-div");
 let $actualPage = document.querySelector("#actual-page");
+const spinner = document.getElementById("spinner");
 
 let count = 1; //show the number of the pokemon in the api url
 let countPokemon = 1; //show the number of the pokemon that are being created
@@ -12,17 +13,28 @@ function createMainPage(){
     if (countPokemon <= limitPagePokemons){
         fetchPokemon();
         countPokemon++;
+        
     }
 }
 function fetchPokemon(){
+    spinner.removeAttribute('hidden');
     // console.log(`https://pokeapi.co/api/v2/pokemon/${count}`)
 fetch(`https://pokeapi.co/api/v2/pokemon/${count}`)
   .then(response => response.json())
   .then(data => {
+        spinner.setAttribute('hidden', '');
+        
         addDiv();
         completeDiv(data);
         createMainPage();
-        showInfo(data);   
+        showInfo(data);
+        if (countPokemon === 25){
+            //si se crearon los 25 divs le saco el hide para que me los muestre
+            console.log("ahora muyestro");
+            array.forEach(element => {
+                element.style.display = '';
+            });
+        }else{}
 
     });
 }
@@ -30,6 +42,7 @@ function addDiv () {
     let createDiv = document.createElement("div");
     createDiv.setAttribute("id", `pokemon-${count}`);
     createDiv.setAttribute("class", "pokemonDivs");
+    createDiv.style.display = 'none';
     
     $pokemonList.appendChild(createDiv);
     createDiv.textContent = "contenido";
