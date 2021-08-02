@@ -141,17 +141,38 @@ function showInfo(data){
     });
 }
 function completeTextPokemon(data){
+    let pokemonData =[];
     let $div = document.querySelector("#div-show-info-text");
     let h1 = document.createElement("h1");
-    h1.innerText = "asdasdasd";
+    h1.innerText = data.name;
     $div.appendChild(h1);
+    pokemonData.push("Altura = "+ data.height,"Peso = "+data.weight,"Experiencia base = "+data.base_experience,"Especie = "+data.species.name,)
+    
+    for (i = 0; i < pokemonData.length; i++) {
+          var p = document.createElement("p");
+        let contenido = pokemonData[i];
 
-
-    for (i = 0; i < 8; i++) {
-        var p = document.createElement("p");
-        let contenido = "hola"
         p.appendChild(document.createTextNode(contenido));
         $div.appendChild(p);
+    }
+    var ability = document.createElement("p");
+    ability.appendChild(document.createTextNode("Habilidades:"));
+    $div.appendChild(ability);
+
+    let abilityArray = [];
+    abilityArray.push(data.abilities)
+    var ul=document.createElement('ul');
+    $div.appendChild(ul);
+    const element = abilityArray[0];
+
+        
+        console.log(data.abilities.length)
+    for (let index = 0; index < data.abilities.length; index++) {
+        console.log(index)
+        var li=document.createElement('li');
+        li.setAttribute('class','item');
+        ul.appendChild(li);
+        li.innerHTML=element[index].ability.name;
     }
 
 

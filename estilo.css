@@ -115,10 +115,10 @@ h1{
     width: 70vw;
 }
 #div-show-info-text{
-    background-color: red;
-    display: flex;
-    flex-direction: column;
-    margin: 12px;
+    display: inline-block;
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #4800ff;
 }
 #div-show-info-img{
     display: flex;
