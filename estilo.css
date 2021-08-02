@@ -113,12 +113,15 @@ h1{
     flex-direction:row ;
     height: 30vw;
     width: 70vw;
+    
 }
 #div-show-info-text{
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
+    font-size: 20px;
     margin: 20px;
-    padding: 20px;
     border: 1px solid #4800ff;
+    font-family: monospace;
 }
 #div-show-info-img{
     display: flex;

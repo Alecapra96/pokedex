@@ -15,6 +15,7 @@ let array = [];
 function createMainPage(){
  
     pageNumber();
+    // console.log("countPokemon " + countPokemon +"y limitpage" + limitPagePokemons )
     if (countPokemon <= limitPagePokemons){
         fetchPokemon();
         countPokemon++;
@@ -136,15 +137,30 @@ function showInfo(data){
             createDivbutton.appendChild(btn);
             btn.textContent = "cerrar";
 
+                btnCloseInfo();
 
         }
     });
+}
+function btnCloseInfo(){
+    let $btnClose = document.querySelector("#btn-close");
+    //borrar `div-show-info`
+    $btnClose.onclick=function(){
+        console.log("clocks")
+        let $divShowInfo = document.querySelector("#div-show-info");
+        $divShowInfo.remove();
+        countPokemon = 1;
+        createMainPage();
+    }
+
+
 }
 function completeTextPokemon(data){
     let pokemonData =[];
     let $div = document.querySelector("#div-show-info-text");
     let h1 = document.createElement("h1");
     h1.innerText = data.name;
+    h1.style.fontFamily = "monospace"
     $div.appendChild(h1);
     pokemonData.push("Altura = "+ data.height,"Peso = "+data.weight,"Experiencia base = "+data.base_experience,"Especie = "+data.species.name,)
     
