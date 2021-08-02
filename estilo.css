@@ -103,10 +103,20 @@ h1{
     height: auto;
     max-height: 71.4px;
     
+    
+}
+#logo{
+    margin: 1em;
+    max-width: 100%;
 }
 #div-show-info{
-  
+    margin: 1em;
+    max-width: 100%;
     background-color: #ad5a11;
+}
+#img-show-info{
+    margin: 1em;
+    max-width: 100%;
 }
 #pokemon-list-div{ 
     display: flex;
@@ -117,18 +127,30 @@ h1{
     margin: 20px;
     padding: 10px;
     background-color: #FDF6F0;
-    width:1255px; 
-	height:385px;
+    margin: 1em;
+    max-width: 100%;
+    overflow: auto;
 }
-
-
+#botton-page{
+    display: flex;
+    flex-direction: column;    
+}
+#range-pokemon{
+    display: flex;
+    flex-direction: row;
+    font-family: monospace;
+    font-size: 15px;
+    margin-right: 1.8vw;
+    justify-content: flex-end
+    
+}
 #buttons-pages{
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
     padding: 20px;
-    
+
 }
 #text-alejandro{
     padding: 4px;

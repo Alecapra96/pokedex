@@ -31,14 +31,22 @@
                     <!-- <div id="show-info"></div> -->
                 </div>
             </div>
+            <div id="botton-page">
+            <div id="range-pokemon">
+                <label for="price">Numeros de pokemones: </label>
+                <input type="range" name="price" id="price" min="1" max="150" step="1" value="62">
+                <output class="price-output" for="price"></output>
+            </div>
             <div id="buttons-pages">
                 <button class="button-css" onclick="btnAfterClick()"">Pagina anterior</button>
                 <p id="actual-page">1</p>
                 <button class="button-css" onclick="btnNextClick()">Pagina siguiente</button>
-            </div>    
+            </div>
+            </div> 
     </div>
 
     <p id="text-alejandro">Creado a golpes por Alejandro Capra.</p>
+    
 <script src="src/pokedex.js"></script>
 </body>
 </html>

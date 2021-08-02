@@ -1,15 +1,20 @@
 let $pokemonList = document.querySelector("#pokemon-list-div");
 let $actualPage = document.querySelector("#actual-page");
 const spinner = document.getElementById("spinner");
+const price = document.querySelector('#price')
+const output = document.querySelector('.price-output')
+
 
 let count = 1; //show the number of the pokemon in the api url
 let countPokemon = 1; //show the number of the pokemon that are being created
 let countPage =1; //show the number of the page
-const limitPagePokemons = 24; //24 pokemon per page
+let limitPagePokemons = 62; //62 pokemon per page
 let $btnNext = document.querySelector("#btn-next");
 let array = [];
 
 function createMainPage(){
+ 
+    pageNumber();
     if (countPokemon <= limitPagePokemons){
         fetchPokemon();
         countPokemon++;
@@ -17,8 +22,13 @@ function createMainPage(){
     }
 }
 function fetchPokemon(){
-    spinner.removeAttribute('hidden');
-    // console.log(`https://pokeapi.co/api/v2/pokemon/${count}`)
+    if (countPage >=2){
+        spinner.removeAttribute('hidden');
+
+    }
+    if(countPokemon ===1){
+        loadingScreen();
+    }
 fetch(`https://pokeapi.co/api/v2/pokemon/${count}`)
   .then(response => response.json())
   .then(data => {
@@ -28,7 +38,9 @@ fetch(`https://pokeapi.co/api/v2/pokemon/${count}`)
         completeDiv(data);
         createMainPage();
         showInfo(data);
-        if (countPokemon === 25){
+        if (countPokemon === limitPagePokemons){
+            let $logo = document.querySelector("#logo");
+            $logo.remove();
             //si se crearon los 25 divs le saco el hide para que me los muestre
             console.log("ahora muyestro");
             array.forEach(element => {
@@ -97,9 +109,9 @@ function showInfo(data){
              createDiv.textContent = "contenido";
 
              let img = document.createElement("img");
+             img.id = "img-show-info"
              img.src = data.sprites.other.dream_world.front_default;
              createDiv.appendChild(img);
-             return 
         }
     });
 }
@@ -107,11 +119,30 @@ function wipeDivs(){
     for (let index = 0; index < array.length; index++) {
         let $deleteDiv = array[index];
         $deleteDiv.remove();
-        
+
         }
        
 
     //wipea the divs
+}
+function loadingScreen(){
+    console.log($pokemonList);
+    let img = document.createElement("img");
+    img.id = "logo";
+    img.src = "logo.png"
+    $pokemonList.appendChild(img);
+
+    // setTimeout(() => {
+    //     createMainPage();
+    // }, 1000);
+}
+function pageNumber(){
+    output.textContent = price.value
+    price.addEventListener('input', function() {
+        output.textContent = price.value 
+    });
+    
+    limitPagePokemons = Number(price.value);
 }
 
 createMainPage();
