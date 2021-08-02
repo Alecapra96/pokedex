@@ -57,7 +57,7 @@ function addDiv () {
     createDiv.style.display = 'none';
     
     $pokemonList.appendChild(createDiv);
-    createDiv.textContent = "contenido";
+
     let $arrayPush = document.querySelector(`#pokemon-${count}`);
     array.push($arrayPush);
 }
@@ -74,7 +74,9 @@ function completeDiv(element){
 }
 function btnNextClick (){ //hacer un if que diga que si existe el $divshowinfo haga el codigo de abajo y si no existe haga el codigo desde abajo de wipe()
     let $divShowInfo = document.querySelector("#div-show-info");
-    $divShowInfo.remove();
+    if($divShowInfo != null){
+        $divShowInfo.remove();
+    }
     wipeDivs()
     countPage++; //aumenta el contador de la pagina
     countPokemon = 1;
@@ -86,7 +88,9 @@ function btnNextClick (){ //hacer un if que diga que si existe el $divshowinfo h
 function btnAfterClick (){
     if(countPage > 1){
         let $divShowInfo = document.querySelector("#div-show-info");
-    $divShowInfo.remove();
+        if($divShowInfo != null){
+            $divShowInfo.remove();
+        }
         wipeDivs()
     countPage--; //disminuye el contador de la pagina
     countPokemon = 1;
@@ -103,27 +107,60 @@ function showInfo(data){
         element.onclick=function(){
             console.log(element) //sacar de el element el id que es el num del pokemon que hace clickkk
             wipeDivs();
-             let createDiv = document.createElement("div");
-             createDiv.setAttribute("id", `div-show-info`);
-             $pokemonList.appendChild(createDiv);
-             createDiv.textContent = "contenido";
 
-             let img = document.createElement("img");
-             img.id = "img-show-info"
-             img.src = data.sprites.other.dream_world.front_default;
-             createDiv.appendChild(img);
+            let createDiv = document.createElement("div");
+            createDiv.setAttribute("id", `div-show-info`);
+            $pokemonList.appendChild(createDiv);
+            
+            let $createDiv = document.querySelector("#div-show-info")
+            let createDivimg = document.createElement("div");
+            createDivimg.setAttribute("id", `div-show-info-img`);
+            $createDiv.appendChild(createDivimg);
+    
+            let img = document.createElement("img");
+            img.id = "img-show-info"
+            img.src = data.sprites.other.dream_world.front_default;
+            createDivimg.appendChild(img);
+
+            let createDivtext = document.createElement("div");
+            createDivtext.setAttribute("id", `div-show-info-text`);
+            $createDiv.appendChild(createDivtext);
+
+            completeTextPokemon(data);
+
+            let createDivbutton = document.createElement("div");
+            createDivbutton.setAttribute("id", `div-show-info-button`);
+            $createDiv.appendChild(createDivbutton);
+            let btn = document.createElement("button");
+            btn.id = "btn-close";
+            createDivbutton.appendChild(btn);
+            btn.textContent = "cerrar";
+
+
         }
     });
+}
+function completeTextPokemon(data){
+    let $div = document.querySelector("#div-show-info-text");
+    let h1 = document.createElement("h1");
+    h1.innerText = "asdasdasd";
+    $div.appendChild(h1);
+
+
+    for (i = 0; i < 8; i++) {
+        var p = document.createElement("p");
+        let contenido = "hola"
+        p.appendChild(document.createTextNode(contenido));
+        $div.appendChild(p);
+    }
+
+
 }
 function wipeDivs(){
     for (let index = 0; index < array.length; index++) {
         let $deleteDiv = array[index];
         $deleteDiv.remove();
-
-        }
-       
-
-    //wipea the divs
+    }
 }
 function loadingScreen(){
     console.log($pokemonList);

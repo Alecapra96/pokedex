@@ -29,7 +29,6 @@ h1{
 }
 #text-div{
     display: flex;
-    flex-direction: row;
     justify-content: center;
 }
 #text-box{
@@ -110,13 +109,27 @@ h1{
     max-width: 100%;
 }
 #div-show-info{
-    margin: 1em;
-    max-width: 100%;
-    background-color: #ad5a11;
+    display: flex;
+    flex-direction:row ;
+    height: 30vw;
+    width: 70vw;
+}
+#div-show-info-text{
+    background-color: red;
+    display: flex;
+    flex-direction: column;
+    margin: 12px;
+}
+#div-show-info-img{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
 }
 #img-show-info{
-    margin: 1em;
+   
     max-width: 100%;
+    max-height: 100%;
 }
 #pokemon-list-div{ 
     display: flex;
@@ -144,6 +157,10 @@ h1{
     justify-content: flex-end
     
 }
+#actual-page{
+    font-size: 2.2vw;
+    margin: 3px;
+}
 #buttons-pages{
     display: flex;
     flex-direction: row;
@@ -153,6 +170,7 @@ h1{
 
 }
 #text-alejandro{
+    display: flex;
     padding: 4px;
     font-size: 18px;
     width: 24%;
