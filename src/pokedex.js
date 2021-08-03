@@ -8,14 +8,14 @@ const output = document.querySelector('.price-output')
 let count = 1; //show the number of the pokemon in the api url
 let countPokemon = 1; //show the number of the pokemon that are being created
 let countPage =1; //show the number of the page
-let limitPagePokemons = 62; //62 pokemon per page
+let limitPagePokemons = 30; //62 pokemon per page
 let $btnNext = document.querySelector("#btn-next");
 let array = [];
 
 function createMainPage(){
  
     pageNumber();
-    // console.log("countPokemon " + countPokemon +"y limitpage" + limitPagePokemons )
+    //  console.log("countPokemon " + countPokemon +"y limitpage" + limitPagePokemons )
     if (countPokemon <= limitPagePokemons){
         fetchPokemon();
         countPokemon++;
@@ -43,7 +43,7 @@ fetch(`https://pokeapi.co/api/v2/pokemon/${count}`)
             let $logo = document.querySelector("#logo");
             $logo.remove();
             //si se crearon los 25 divs le saco el hide para que me los muestre
-            console.log("ahora muyestro");
+            // console.log("ahora muyestro");
             array.forEach(element => {
                 element.style.display = '';
             });
@@ -102,42 +102,48 @@ function btnAfterClick (){
     }
 
 }
-function showInfo(data){
-    
+function showInfo(){
     array.forEach(element => {
         element.onclick=function(){
-            console.log(element) //sacar de el element el id que es el num del pokemon que hace clickkk
-            wipeDivs();
-
-            let createDiv = document.createElement("div");
-            createDiv.setAttribute("id", `div-show-info`);
-            $pokemonList.appendChild(createDiv);
+            console.log(element)
+            let idPokemon = element.textContent;
             
-            let $createDiv = document.querySelector("#div-show-info")
-            let createDivimg = document.createElement("div");
-            createDivimg.setAttribute("id", `div-show-info-img`);
-            $createDiv.appendChild(createDivimg);
-    
-            let img = document.createElement("img");
-            img.id = "img-show-info"
-            img.src = data.sprites.other.dream_world.front_default;
-            createDivimg.appendChild(img);
-
-            let createDivtext = document.createElement("div");
-            createDivtext.setAttribute("id", `div-show-info-text`);
-            $createDiv.appendChild(createDivtext);
-
-            completeTextPokemon(data);
-
-            let createDivbutton = document.createElement("div");
-            createDivbutton.setAttribute("id", `div-show-info-button`);
-            $createDiv.appendChild(createDivbutton);
-            let btn = document.createElement("button");
-            btn.id = "btn-close";
-            createDivbutton.appendChild(btn);
-            btn.textContent = "cerrar";
-
-                btnCloseInfo();
+            fetch(`https://pokeapi.co/api/v2/pokemon/${idPokemon}`)
+            .then(response => response.json())
+                .then(data => {
+                    wipeDivs();
+        
+                    let createDiv = document.createElement("div");
+                    createDiv.setAttribute("id", `div-show-info`);
+                    $pokemonList.appendChild(createDiv);
+                    
+                    let $createDiv = document.querySelector("#div-show-info")
+                    let createDivimg = document.createElement("div");
+                    createDivimg.setAttribute("id", `div-show-info-img`);
+                    $createDiv.appendChild(createDivimg);
+            
+                    let img = document.createElement("img");
+                    img.id = "img-show-info"
+                    img.src = data.sprites.other.dream_world.front_default;
+                    createDivimg.appendChild(img);
+        
+                    let createDivtext = document.createElement("div");
+                    createDivtext.setAttribute("id", `div-show-info-text`);
+                    $createDiv.appendChild(createDivtext);
+        
+                    completeTextPokemon(data);
+        
+                    let createDivbutton = document.createElement("div");
+                    createDivbutton.setAttribute("id", `div-show-info-button`);
+                    $createDiv.appendChild(createDivbutton);
+                    let btn = document.createElement("button");
+                    btn.id = "btn-close";
+                    createDivbutton.appendChild(btn);
+                    btn.textContent = "X";
+        
+                        btnCloseInfo();
+                });
+            
 
         }
     });
@@ -149,7 +155,8 @@ function btnCloseInfo(){
         console.log("clocks")
         let $divShowInfo = document.querySelector("#div-show-info");
         $divShowInfo.remove();
-        countPokemon = 1;
+        countPokemon = countPokemon - limitPagePokemons;
+        count = count - limitPagePokemons;
         createMainPage();
     }
 
@@ -165,13 +172,13 @@ function completeTextPokemon(data){
     pokemonData.push("Altura = "+ data.height,"Peso = "+data.weight,"Experiencia base = "+data.base_experience,"Especie = "+data.species.name,)
     
     for (i = 0; i < pokemonData.length; i++) {
-          var p = document.createElement("p");
+          var p = document.createElement("span");
         let contenido = pokemonData[i];
 
         p.appendChild(document.createTextNode(contenido));
         $div.appendChild(p);
     }
-    var ability = document.createElement("p");
+    var ability = document.createElement("span");
     ability.appendChild(document.createTextNode("Habilidades:"));
     $div.appendChild(ability);
 
@@ -182,9 +189,7 @@ function completeTextPokemon(data){
     const element = abilityArray[0];
 
         
-        console.log(data.abilities.length)
     for (let index = 0; index < data.abilities.length; index++) {
-        console.log(index)
         var li=document.createElement('li');
         li.setAttribute('class','item');
         ul.appendChild(li);
@@ -200,7 +205,7 @@ function wipeDivs(){
     }
 }
 function loadingScreen(){
-    console.log($pokemonList);
+    // console.log($pokemonList);
     let img = document.createElement("img");
     img.id = "logo";
     img.src = "logo.png"
