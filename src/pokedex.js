@@ -3,7 +3,9 @@ let $actualPage = document.querySelector("#actual-page");
 const spinner = document.getElementById("spinner");
 const price = document.querySelector('#price')
 const output = document.querySelector('.price-output')
-
+const $searchButton = document.querySelector("#search-button")
+let idpokemon;
+let $textBox = document.querySelector("#text-box");
 
 let count = 1; //show the number of the pokemon in the api url
 let countPokemon = 1; //show the number of the pokemon that are being created
@@ -106,47 +108,52 @@ function showInfo(){
     array.forEach(element => {
         element.onclick=function(){
             console.log(element)
-            let idPokemon = element.textContent;
-            
-            fetch(`https://pokeapi.co/api/v2/pokemon/${idPokemon}`)
-            .then(response => response.json())
-                .then(data => {
-                    wipeDivs();
-        
-                    let createDiv = document.createElement("div");
-                    createDiv.setAttribute("id", `div-show-info`);
-                    $pokemonList.appendChild(createDiv);
-                    
-                    let $createDiv = document.querySelector("#div-show-info")
-                    let createDivimg = document.createElement("div");
-                    createDivimg.setAttribute("id", `div-show-info-img`);
-                    $createDiv.appendChild(createDivimg);
-            
-                    let img = document.createElement("img");
-                    img.id = "img-show-info"
-                    img.src = data.sprites.other.dream_world.front_default;
-                    createDivimg.appendChild(img);
-        
-                    let createDivtext = document.createElement("div");
-                    createDivtext.setAttribute("id", `div-show-info-text`);
-                    $createDiv.appendChild(createDivtext);
-        
-                    completeTextPokemon(data);
-        
-                    let createDivbutton = document.createElement("div");
-                    createDivbutton.setAttribute("id", `div-show-info-button`);
-                    $createDiv.appendChild(createDivbutton);
-                    let btn = document.createElement("button");
-                    btn.id = "btn-close";
-                    createDivbutton.appendChild(btn);
-                    btn.textContent = "X";
-        
-                        btnCloseInfo();
-                });
-            
+             idPokemon = element.textContent;
+
+            fetchPokemonInfo(idPokemon);
 
         }
     });
+}
+function fetchPokemonInfo(idPokemon){
+    console.log(idPokemon)
+            let url = `https://pokeapi.co/api/v2/pokemon/${idPokemon}`
+            console.log(url)
+    fetch(url)
+    .then(response => response.json())
+        .then(data => {
+            wipeDivs();
+
+            let createDiv = document.createElement("div");
+            createDiv.setAttribute("id", `div-show-info`);
+            $pokemonList.appendChild(createDiv);
+            
+            let $createDiv = document.querySelector("#div-show-info")
+            let createDivimg = document.createElement("div");
+            createDivimg.setAttribute("id", `div-show-info-img`);
+            $createDiv.appendChild(createDivimg);
+    
+            let img = document.createElement("img");
+            img.id = "img-show-info"
+            img.src = data.sprites.other.dream_world.front_default;
+            createDivimg.appendChild(img);
+
+            let createDivtext = document.createElement("div");
+            createDivtext.setAttribute("id", `div-show-info-text`);
+            $createDiv.appendChild(createDivtext);
+
+            completeTextPokemon(data);
+
+            let createDivbutton = document.createElement("div");
+            createDivbutton.setAttribute("id", `div-show-info-button`);
+            $createDiv.appendChild(createDivbutton);
+            let btn = document.createElement("button");
+            btn.id = "btn-close";
+            createDivbutton.appendChild(btn);
+            btn.textContent = "X";
+
+                btnCloseInfo();
+        });
 }
 function btnCloseInfo(){
     let $btnClose = document.querySelector("#btn-close");
@@ -205,16 +212,12 @@ function wipeDivs(){
     }
 }
 function loadingScreen(){
-    // console.log($pokemonList);
     let img = document.createElement("img");
     img.id = "logo";
     img.src = "logo.png"
     $pokemonList.appendChild(img);
-
-    // setTimeout(() => {
-    //     createMainPage();
-    // }, 1000);
 }
+
 function pageNumber(){
     output.textContent = price.value
     price.addEventListener('input', function() {
@@ -222,6 +225,15 @@ function pageNumber(){
     });
     
     limitPagePokemons = Number(price.value);
+}
+function searchButton(){
+    let $divShowInfo = document.querySelector("#div-show-info");
+    if($divShowInfo != null){
+        $divShowInfo.remove();
+    }
+wipeDivs();
+let $textBoxValue = $textBox.value
+fetchPokemonInfo($textBoxValue);
 }
 
 createMainPage();

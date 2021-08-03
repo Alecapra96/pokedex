@@ -7,19 +7,25 @@ body{
 #top-page{
     display: flex;
     flex-direction: row;
-    
+    width: 100%;
+    justify-content: space-around;
+
 
 }
 #top-page-div{
     display: flex;
     flex-direction: column;
     
-    
 
 }
 #blue-circle{
-    border-style:solid;
-    width: 70%;
+    display: flex;
+    max-width: 70%;
+
+}
+#image-logo{
+    max-height: 10vw;
+    max-width: 60vw;
 }
 h1{
     font-size: 70px;
@@ -261,3 +267,4 @@ h1{
 
 
   }
+
